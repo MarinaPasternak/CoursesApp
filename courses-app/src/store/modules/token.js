@@ -3,13 +3,13 @@ import axios from 'axios';
 export default {
     state: {
        authToken: null,
-      },
-      mutations: {
+    },
+    mutations: {
         setToken(state, token) {
           state.authToken = token;
         },
-      },
-      actions: {
+    },
+    actions: {
         async getToken({ commit }) {
             try {
                const response = await axios.get(
@@ -19,7 +19,7 @@ export default {
             } catch (error) {
                 console.log(error)
             }
-          }
-      },
-  };
+        }
+    },
+};
   

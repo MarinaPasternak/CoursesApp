@@ -1,8 +1,15 @@
 <template>
   <div>
-    <div>
-      <h1>COURSES</h1>
-      <div>{{ allCourses }}</div>
+    <h1>COURSES</h1>
+    <div v-if="coursesLoading" class="loading-container">
+      <b-spinner class="ml-3" type="border" medium variant="dark" />
+      <h3>Loading....</h3>
+    </div>
+    <div class="error-message-container" v-else-if="errorMessage">
+      Oops, smth went wrong... {{ errorMessage }}
+    </div>
+    <div class="courses-container" v-else>
+      {{ allCourses }}
     </div>
   </div>
 </template>
@@ -13,13 +20,32 @@ export default {
   computed: {
     ...mapState({
       allCourses: (state) => state.courses.courses,
+      areCoursesLoading: (state) => state.courses.coursesLoading,
+      errorMessage: (state) => state.courses.coursesError,
     }),
   },
   methods: mapActions(["fetchCourses"]),
-  mounted() {
+  created() {
     this.fetchCourses();
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.courses-container,
+.loading-container,
+.error-message-container {
+  margin-top: 3rem;
+}
+
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-container h3 {
+  margin-left: 20px;
+  margin-bottom: 0;
+}
+</style>

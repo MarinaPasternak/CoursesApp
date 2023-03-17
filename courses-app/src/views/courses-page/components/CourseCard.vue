@@ -53,7 +53,7 @@ export default {
   margin: 1.5rem;
   padding: 1.5rem;
   border-radius: 10px;
-  border-width: 1px;
+  border-width: 3px;
   border-style: solid;
   border-color: #17a2b8;
 }

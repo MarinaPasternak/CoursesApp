@@ -1,5 +1,4 @@
 <template>
-  <!--  -->
   <div>
     <h1>COURSES</h1>
     <div v-if="areCoursesLoading" class="loading-container">
@@ -9,12 +8,28 @@
     <div class="error-message-container" v-else-if="errorMessage">
       Oops, smth went wrong... {{ errorMessage }}
     </div>
-    <div class="d-flex courses-container" v-else>
-      <course-card
-        v-for="course in allCourses"
-        :course="course"
-        :key="course.id"
-      ></course-card>
+    <div v-else>
+      <b-pagination
+        class="customPagination"
+        :total-rows="totalRows"
+        :per-page="perPage"
+        v-model="currentPage"
+        @input="fetchCourses"
+      ></b-pagination>
+      <div class="d-flex courses-container">
+        <course-card
+          v-for="course in filteredCourses"
+          :course="course"
+          :key="course.id"
+        ></course-card>
+      </div>
+      <b-pagination
+        class="customPagination"
+        :total-rows="totalRows"
+        :per-page="perPage"
+        v-model="currentPage"
+        @input="fetchCourses"
+      ></b-pagination>
     </div>
   </div>
 </template>
@@ -26,14 +41,34 @@ export default {
   components: {
     CourseCard,
   },
+  data() {
+    return {
+      currentPage: 1,
+      perPage: 5,
+      totalRows: 0,
+    };
+  },
   computed: {
     ...mapState({
       allCourses: (state) => state.courses.courses,
       areCoursesLoading: (state) => state.courses.coursesLoading,
       errorMessage: (state) => state.courses.coursesError,
     }),
+    filteredCourses() {
+      this.countAllRFilterdRecords();
+
+      const startIndex = (this.currentPage - 1) * this.perPage;
+      const endIndex = startIndex + this.perPage;
+
+      return this.allCourses.slice(startIndex, endIndex);
+    },
   },
-  methods: mapActions(["fetchCourses"]),
+  methods: {
+    ...mapActions(["fetchCourses"]),
+    countAllRFilterdRecords() {
+      this.totalRows = this.allCourses.length;
+    },
+  },
   created() {
     this.fetchCourses();
   },

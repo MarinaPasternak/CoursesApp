@@ -10,7 +10,7 @@
     </div>
     <div v-else>
       <b-pagination
-        class="customPagination"
+        class="custom-pagination"
         :total-rows="totalRows"
         :per-page="perPage"
         v-model="currentPage"
@@ -24,7 +24,7 @@
         ></course-card>
       </div>
       <b-pagination
-        class="customPagination"
+        class="custom-pagination"
         :total-rows="totalRows"
         :per-page="perPage"
         v-model="currentPage"
@@ -96,5 +96,19 @@ export default {
 .courses-container {
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.custom-pagination {
+  margin: 3rem;
+}
+::v-deep .custom-pagination .page-link {
+  font-weight: 800;
+  background: white;
+  color: #17a2b8;
+  border: #17a2b8 1px solid;
+}
+::v-deep .custom-pagination .active button {
+  background: #17a2b8;
+  color: white;
 }
 </style>

@@ -33,9 +33,12 @@
         </div>
       </div>
       <p class="course-description-text">{{ course.description }}</p>
-      <b-badge pill v-for="(skill, index) in course.meta.skills" :key="index">
-        {{ skill }}
-      </b-badge>
+      <div class="badge-container">
+        <b-badge pill v-for="(skill, index) in course.meta.skills" :key="index">
+          {{ skill }}
+        </b-badge>
+      </div>
+      <b-button class="see-course-button">See course</b-button>
     </div>
   </div>
 </template>
@@ -48,14 +51,23 @@ export default {
 
 <style scoped>
 .card-container {
+  position: relative;
   width: 450px;
-  min-height: 550px;
+  min-height: 615px;
   margin: 1.5rem;
   padding: 1.5rem;
   border-radius: 10px;
   border-width: 3px;
   border-style: solid;
   border-color: #17a2b8;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+}
+
+.card-container:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
 }
 
 .card-container img {
@@ -101,5 +113,24 @@ export default {
 .card-container .course-description-text {
   text-align: left;
   font-weight: 800;
+}
+
+.card-container .see-course-button {
+  width: 70%;
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 0.6rem;
+  border-color: #17a2b8;
+  font-weight: 800;
+  color: white;
+  background-color: white;
+  color: #17a2b8;
+}
+
+.card-container .see-course-button:hover {
+  background-color: #17a2b8;
+  color: white;
 }
 </style>

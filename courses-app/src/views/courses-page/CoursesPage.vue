@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>COURSES</h1>
+    <h1 class="courses-titlte">COURSES</h1>
     <div v-if="areCoursesLoading" class="loading-container">
       <b-spinner class="ml-3" type="border" medium variant="dark" />
       <h3>Loading....</h3>
@@ -76,6 +76,10 @@ export default {
 </script>
 
 <style scoped>
+.courses-titlte {
+  margin-top: 3rem;
+}
+
 .courses-container,
 .loading-container,
 .error-message-container {

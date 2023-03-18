@@ -1,16 +1,5 @@
 <template>
   <div id="app">
-    <div>
-      <b-navbar toggleable="lg" type="light" variant="light">
-        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-        <b-collapse id="nav-collapse" is-nav>
-          <b-navbar-nav>
-            <router-link to="/courses" class="nav-link">Courses</router-link>
-            <router-link to="/videos" class="nav-link">Videos</router-link>
-          </b-navbar-nav>
-        </b-collapse>
-      </b-navbar>
-    </div>
     <router-view />
   </div>
 </template>

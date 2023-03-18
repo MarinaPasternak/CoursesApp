@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import CoursesPage from '../views/courses-page/CoursesPage.vue';
-import VideosPage from '../views/videos-page/VideosPage.vue';
+import CoursePage from '../views/course-page/CoursePage.vue';
 import NotFound from '../components/NotFound.vue';
 
 Vue.use(VueRouter);
@@ -13,12 +13,13 @@ const routes = [
         component: CoursesPage
     }, {
         path: '/courses',
-        name: 'posts',
-        component: CoursesPage
+        name: 'courses',
+        component: CoursesPage,
     }, {
-        path: '/videos',
-        name: 'videos',
-        component: VideosPage
+        path: '/course/:courseId',
+        name: 'course',
+        component: CoursePage,
+        props: true
     }, {
         path: '*',
         name: 'Not Found',

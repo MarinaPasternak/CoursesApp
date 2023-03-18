@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="card-container">
+    <div class="card-container" @click="goToCoursePage(course.id)">
       <h3>{{ course.title }}</h3>
       <img :src="course.previewImageLink + '/cover.webp'" />
       <div class="d-flex statistic-container">
@@ -38,14 +38,22 @@
           {{ skill }}
         </b-badge>
       </div>
-      <b-button class="see-course-button">See course</b-button>
+      <router-link :to="'/course/' + course.id">
+        <b-button class="see-course-button">See The Course</b-button>
+      </router-link>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  name: "CourseCard",
   props: ["course"],
+  methods: {
+    goToCoursePage(courseId) {
+      this.$router.push({ name: "course", params: { courseId } });
+    },
+  },
 };
 </script>
 

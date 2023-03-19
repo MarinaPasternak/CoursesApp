@@ -72,7 +72,9 @@ export default {
       errorMessage: (state) => state.courseData.courseError,
     }),
     lessonDataForVideoDeafault() {
-      return this.courseData?.lessons[0];
+      return this.courseData.lessons.find(
+        (lesson) => lesson.status === "unlocked"
+      );
     },
   },
   methods: {

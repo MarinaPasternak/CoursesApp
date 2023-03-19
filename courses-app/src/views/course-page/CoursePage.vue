@@ -4,7 +4,6 @@
       <router-link to="/courses/">
         <b-button class="ribbon-link" size="lg">See All Courses</b-button>
       </router-link>
-      <h1 class="course-title">LESSONS TITLE</h1>
       <div v-if="isCourseLoading">
         <loading-spinner></loading-spinner>
       </div>
@@ -12,6 +11,7 @@
         <error-message :errorMessage="errorMessage"></error-message>
       </div>
       <div v-else-if="courseData">
+        <h1 class="course-title">{{ courseData.title }}</h1>
         <div class="sidebar-container">
           <b-button
             v-b-toggle.allCoursesSidebar
@@ -20,8 +20,12 @@
             >See All Lessons</b-button
           >
           <b-sidebar id="allCoursesSidebar" title="All Lessons" shadow>
-            <div class="lessons-list px-3 py-2">
-              <div v-for="lesson in courseData.lessons" :key="lesson.id">
+            <div class="lessons-list">
+              <div
+                v-for="lesson in courseData.lessons"
+                :key="lesson.id"
+                @click="getLesson(lesson)"
+              >
                 <p :class="lesson.status">
                   {{ lesson.title }}
                   <b-icon
@@ -33,7 +37,9 @@
             </div>
           </b-sidebar>
         </div>
-        <div></div>
+        <div>
+          <lesson-video :lessonData="lessonDataForVideoDeafault"></lesson-video>
+        </div>
       </div>
     </div>
   </div>
@@ -43,12 +49,19 @@
 import { mapState, mapActions } from "vuex";
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
 import ErrorMessage from "@/components/ErrorMessage.vue";
+import LessonVideo from "./components/LessonVideo.vue";
 export default {
   name: "CoursePage",
   props: ["courseId"],
   components: {
     ErrorMessage,
     LoadingSpinner,
+    LessonVideo,
+  },
+  data() {
+    return {
+      lessonDataForVideo: null,
+    };
   },
   computed: {
     ...mapState({
@@ -56,9 +69,17 @@ export default {
       isCourseLoading: (state) => state.courseData.courseLoading,
       errorMessage: (state) => state.courseData.courseError,
     }),
+    lessonDataForVideoDeafault() {
+      return this.courseData.lessons[0];
+    },
   },
   methods: {
     ...mapActions(["fetchCourseDataById"]),
+    getLesson(lesson) {
+      if (lesson.status === "unlocked") {
+        this.$refs.lessonVideo.lessonData = lesson;
+      }
+    },
   },
   mounted() {
     this.fetchCourseDataById(this.courseId);

@@ -15,7 +15,7 @@
         v-model="currentPage"
         @input="fetchCourses"
       ></b-pagination>
-      <div class="d-flex courses-container">
+      <div class="courses-container">
         <course-card
           v-for="course in filteredCourses"
           :course="course"
@@ -90,6 +90,7 @@ export default {
 }
 
 .courses-container {
+  display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -111,10 +112,42 @@ export default {
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
-  /* CSS styles for tablets */
+  .custom-pagination {
+    margin: 0.8rem auto;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  * {
+    font-size: 0.8rem;
+  }
+
+  .courses-container,
+  .loading-container,
+  .error-message-container {
+    margin-top: 1rem;
+  }
+  .custom-pagination {
+    margin: 0.8rem auto;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 480px) {
-  /* CSS styles for mobile devices */
+  * {
+    font-size: 0.8rem;
+  }
+
+  .courses-container,
+  .loading-container,
+  .error-message-container {
+    margin-top: 1rem;
+  }
+
+  .custom-pagination {
+    margin: 0.8rem auto;
+    justify-content: center;
+  }
 }
 </style>

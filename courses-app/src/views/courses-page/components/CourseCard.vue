@@ -193,4 +193,82 @@ export default {
 .card-container:hover .video-preview-container img {
   display: none;
 }
+
+@media (min-width: 480px) and (max-width: 767px) {
+  * {
+    font-size: 0.8rem;
+  }
+
+  .card-container .badge {
+    font-size: 0.7rem;
+  }
+
+  .card-container {
+    width: 300px;
+    min-height: 560px;
+    border-width: 1px;
+  }
+
+  .card-container img {
+    width: 250px;
+    height: 150px;
+  }
+
+  .video-preview-container video {
+    width: 250px;
+    height: 150px;
+  }
+
+  .statistic-container .statistic-badge {
+    margin: 0;
+  }
+
+  .statistic-container .statistic-badge .icon-item {
+    margin-right: 0.7rem;
+    padding: 0.4rem;
+  }
+
+  .statistic-container .statistic-badge p {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  * {
+    font-size: 0.8rem;
+  }
+
+  .card-container .badge {
+    font-size: 0.7rem;
+  }
+
+  .card-container {
+    width: 300px;
+    min-height: 560px;
+    border-width: 1px;
+  }
+
+  .card-container img {
+    width: 250px;
+    height: 150px;
+  }
+
+  .video-preview-container video {
+    width: 250px;
+    height: 150px;
+  }
+
+  .statistic-container .statistic-badge {
+    margin: 0;
+  }
+
+  .statistic-container .statistic-badge .icon-item {
+    margin-right: 0.7rem;
+    padding: 0.4rem;
+  }
+
+  .statistic-container .statistic-badge p {
+    font-size: 0.7rem;
+  }
+}
 </style>

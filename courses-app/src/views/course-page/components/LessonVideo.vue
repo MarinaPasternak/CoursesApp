@@ -83,7 +83,7 @@ export default {
 }
 
 @media (max-width: 480px) {
-  h2 {
+  .lesson-title {
     font-size: 1rem;
   }
 

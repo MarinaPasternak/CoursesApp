@@ -22,9 +22,18 @@ export default {
     loadVideo() {
       const video = this.$refs.videoPlayer;
       const hls = new Hls();
+      const savedTime = localStorage.getItem(this.lessonData.id);
 
       hls.loadSource(`${this.lessonData.link}`);
       hls.attachMedia(video);
+
+      if (savedTime !== null) {
+        video.currentTime = parseFloat(savedTime);
+      }
+
+      video.addEventListener("timeupdate", () => {
+        localStorage.setItem(this.lessonData.id, video.currentTime.toString());
+      });
     },
   },
   mounted() {

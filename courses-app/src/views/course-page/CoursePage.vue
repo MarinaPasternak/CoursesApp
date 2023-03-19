@@ -150,12 +150,13 @@ export default {
 }
 
 .ribbon-link:hover {
-  background-color: #20aabf;
   padding-left: 25px;
+  background-color: #20aabf;
   transform: translateX(12px);
 }
 
 .sidebar-open-button {
+  background-color: #117180;
   left: -18px;
   top: 60px;
 }
@@ -173,6 +174,7 @@ export default {
 #allCoursesSidebar .lessons-list p.unlocked {
   cursor: pointer;
 }
+
 #allCoursesSidebar .lessons-list p.unlocked:hover {
   color: #20aabf;
 }

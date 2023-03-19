@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <div class="course-container">
       <router-link to="/courses/">
         <b-button class="ribbon-link" size="lg">See All Courses</b-button>
       </router-link>
@@ -202,6 +202,7 @@ export default {
 
 ::v-deep #allCoursesSidebar .b-sidebar-body {
   padding-left: 30px;
+  padding-right: 15px;
 }
 
 .statistic-container {
@@ -231,5 +232,54 @@ export default {
   background-color: #49b7c8;
   border-radius: 10px;
   opacity: 0.8;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .course-container {
+    margin-top: 8rem;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .course-container {
+    margin-top: 8rem;
+  }
+
+  .statistic-container {
+    width: 100%;
+  }
+  .course-title {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  * {
+    font-size: 0.8rem;
+  }
+
+  .ribbon-link {
+    font-size: 0.9rem;
+  }
+
+  ::v-deep #allCoursesSidebar .b-sidebar-header {
+    font-size: 1rem;
+  }
+
+  #allCoursesSidebar .lessons-list p {
+    font-size: 1rem;
+  }
+  .statistic-container .statistic-badge .icon-item[data-v-3de07dd2] {
+    margin-right: 0.7rem;
+    padding: 0.8rem;
+  }
+
+  .course-container {
+    margin-top: 8rem;
+  }
+
+  .statistic-container {
+    width: 100%;
+  }
 }
 </style>

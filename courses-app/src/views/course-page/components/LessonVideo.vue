@@ -67,11 +67,29 @@ export default {
 }
 
 .lesson-title {
-  margin-top: 25px;
+  margin-top: 2rem;
   color: #17a2b8;
 }
 
 .error-container {
   margin-top: 25px;
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .video-player {
+    width: 90%;
+    height: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  h2 {
+    font-size: 1rem;
+  }
+
+  .video-player {
+    width: 90%;
+    height: auto;
+  }
 }
 </style>

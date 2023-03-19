@@ -1,16 +1,15 @@
 <template>
   <div>
     <div>
-      <router-link :to="'/courses/'">
+      <router-link to="/courses/">
         <b-button class="ribbon-link" size="lg">See All Courses</b-button>
       </router-link>
       <h1 class="course-title">LESSONS TITLE</h1>
-      <div v-if="isCourseLoading" class="loading-container">
-        <b-spinner class="ml-3" type="border" medium variant="dark" />
-        <h3>Loading....</h3>
+      <div v-if="isCourseLoading">
+        <loading-spinner></loading-spinner>
       </div>
-      <div class="error-message-container" v-else-if="errorMessage">
-        Oops, smth went wrong... {{ errorMessage }}
+      <div v-else-if="errorMessage">
+        <error-message :errorMessage="errorMessage"></error-message>
       </div>
       <div v-else>
         {{ courseData.title }}
@@ -21,9 +20,15 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
+import LoadingSpinner from "@/components/LoadingSpinner.vue";
+import ErrorMessage from "@/components/ErrorMessage.vue";
 export default {
   name: "CoursePage",
   props: ["courseId"],
+  components: {
+    ErrorMessage,
+    LoadingSpinner,
+  },
   computed: {
     ...mapState({
       courseData: (state) => state.courseData.course,
@@ -51,16 +56,6 @@ export default {
   margin-top: 3rem;
 }
 
-.loading-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.loading-container h3 {
-  margin-left: 20px;
-  margin-bottom: 0;
-}
 .ribbon-link {
   width: 200px;
   position: fixed;

@@ -1,12 +1,11 @@
 <template>
   <div>
     <h1 class="courses-titlte">COURSES</h1>
-    <div v-if="areCoursesLoading" class="loading-container">
-      <b-spinner class="ml-3" type="border" medium variant="dark" />
-      <h3>Loading....</h3>
+    <div v-if="areCoursesLoading">
+      <LoadingSpinner />
     </div>
-    <div class="error-message-container" v-else-if="errorMessage">
-      Oops, smth went wrong... {{ errorMessage }}
+    <div v-else-if="errorMessage">
+      <error-message :errorMessage="errorMessage"></error-message>
     </div>
     <div v-else>
       <b-pagination
@@ -36,10 +35,14 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
+import LoadingSpinner from "@/components/LoadingSpinner.vue";
+import ErrorMessage from "@/components/ErrorMessage.vue";
 import CourseCard from "./components/CourseCard.vue";
 export default {
   components: {
     CourseCard,
+    ErrorMessage,
+    LoadingSpinner,
   },
   data() {
     return {
@@ -86,17 +89,6 @@ export default {
   margin-top: 3rem;
 }
 
-.loading-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.loading-container h3 {
-  margin-left: 20px;
-  margin-bottom: 0;
-}
-
 .courses-container {
   flex-wrap: wrap;
   justify-content: center;
@@ -105,12 +97,14 @@ export default {
 .custom-pagination {
   margin: 3rem;
 }
+
 ::v-deep .custom-pagination .page-link {
   font-weight: 800;
   background: white;
   color: #17a2b8;
   border: #17a2b8 1px solid;
 }
+
 ::v-deep .custom-pagination .active button {
   background: #17a2b8;
   color: white;

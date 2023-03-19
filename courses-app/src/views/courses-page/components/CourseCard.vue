@@ -132,7 +132,6 @@ export default {
   margin-top: 0.6rem;
   border-color: #17a2b8;
   font-weight: 800;
-  color: white;
   background-color: white;
   color: #17a2b8;
 }

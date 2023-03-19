@@ -71,9 +71,11 @@ export default {
     playVideo() {
       const video = this.$refs.videoPreviewPlayer;
       const hls = new Hls();
+
       hls.loadSource(`${this.course.meta.courseVideoPreview.link}`);
       hls.attachMedia(video);
       video.currentTime = 0;
+
       hls.on(Hls.Events.MANIFEST_PARSED, () => {
         video.addEventListener("canplay", () => {
           video.play();
@@ -178,10 +180,11 @@ export default {
 }
 
 .video-preview-container video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
   display: none;
+  width: 300px;
+  height: 150px;
+  margin: auto;
+  object-fit: cover;
 }
 .card-container:hover .video-preview-container video {
   display: block;

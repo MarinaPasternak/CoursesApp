@@ -7,7 +7,7 @@
     <div v-else-if="errorMessage">
       <error-message :errorMessage="errorMessage"></error-message>
     </div>
-    <div v-else>
+    <div v-else-if="allCourses">
       <b-pagination
         class="custom-pagination"
         :total-rows="totalRows"

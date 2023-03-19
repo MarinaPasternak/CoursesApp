@@ -11,7 +11,7 @@
       <div v-else-if="errorMessage">
         <error-message :errorMessage="errorMessage"></error-message>
       </div>
-      <div v-else>
+      <div v-else-if="courseData">
         <div class="sidebar-container">
           <b-button
             v-b-toggle.allCoursesSidebar
@@ -20,7 +20,17 @@
             >See All Lessons</b-button
           >
           <b-sidebar id="allCoursesSidebar" title="All Lessons" shadow>
-            <div class="px-3 py-2"></div>
+            <div class="lessons-list px-3 py-2">
+              <div v-for="lesson in courseData.lessons" :key="lesson.id">
+                <p :class="lesson.status">
+                  {{ lesson.title }}
+                  <b-icon
+                    v-if="lesson.status !== 'unlocked'"
+                    icon="lock-fill"
+                  ></b-icon>
+                </p>
+              </div>
+            </div>
           </b-sidebar>
         </div>
         <div></div>
@@ -51,7 +61,6 @@ export default {
     ...mapActions(["fetchCourseDataById"]),
   },
   mounted() {
-    console.log(this.$store.state);
     this.fetchCourseDataById(this.courseId);
   },
 };
@@ -92,6 +101,27 @@ export default {
   top: auto;
 }
 
+#allCoursesSidebar .lessons-list {
+  text-align: left;
+}
+
+#allCoursesSidebar .lessons-list p {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #17a2b8;
+}
+
+#allCoursesSidebar .lessons-list p.unlocked {
+  cursor: pointer;
+}
+#allCoursesSidebar .lessons-list p.unlocked:hover {
+  color: #20aabf;
+}
+
+#allCoursesSidebar .lessons-list p.locked {
+  color: #5c5c5c;
+}
+
 ::v-deep #allCoursesSidebar .close {
   border: none;
   background-color: transparent;
@@ -102,6 +132,7 @@ export default {
   height: 35px;
   color: rgb(255, 86, 86);
 }
+
 ::v-deep #allCoursesSidebar .b-sidebar-header {
   margin-top: 1.3rem;
   align-items: initial;

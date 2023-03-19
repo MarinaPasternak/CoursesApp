@@ -12,7 +12,18 @@
         <error-message :errorMessage="errorMessage"></error-message>
       </div>
       <div v-else>
-        {{ courseData.title }}
+        <div class="sidebar-container">
+          <b-button
+            v-b-toggle.allCoursesSidebar
+            class="ribbon-link sidebar-open-button"
+            size="lg"
+            >See All Lessons</b-button
+          >
+          <b-sidebar id="allCoursesSidebar" title="All Lessons" shadow>
+            <div class="px-3 py-2"></div>
+          </b-sidebar>
+        </div>
+        <div></div>
       </div>
     </div>
   </div>
@@ -74,5 +85,26 @@ export default {
   background-color: #20aabf;
   padding-left: 25px;
   transform: translateX(12px);
+}
+
+.sidebar-open-button {
+  left: -18px;
+  top: auto;
+}
+
+::v-deep #allCoursesSidebar .close {
+  border: none;
+  background-color: transparent;
+}
+
+::v-deep #allCoursesSidebar .bi-x {
+  width: 35px;
+  height: 35px;
+  color: rgb(255, 86, 86);
+}
+::v-deep #allCoursesSidebar .b-sidebar-header {
+  margin-top: 1.3rem;
+  align-items: initial;
+  justify-content: center;
 }
 </style>

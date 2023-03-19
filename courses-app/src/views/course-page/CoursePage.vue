@@ -38,7 +38,9 @@
           </b-sidebar>
         </div>
         <div>
-          <lesson-video :lessonData="lessonDataForVideoDeafault"></lesson-video>
+          <lesson-video
+            :lessonData="lessonDataForVideo || lessonDataForVideoDeafault"
+          ></lesson-video>
         </div>
       </div>
     </div>
@@ -70,14 +72,14 @@ export default {
       errorMessage: (state) => state.courseData.courseError,
     }),
     lessonDataForVideoDeafault() {
-      return this.courseData.lessons[0];
+      return this.courseData?.lessons[0];
     },
   },
   methods: {
     ...mapActions(["fetchCourseDataById"]),
     getLesson(lesson) {
       if (lesson.status === "unlocked") {
-        this.$refs.lessonVideo.lessonData = lesson;
+        this.lessonDataForVideo = lesson;
       }
     },
   },
@@ -158,5 +160,9 @@ export default {
   margin-top: 1.3rem;
   align-items: initial;
   justify-content: center;
+}
+
+::v-deep #allCoursesSidebar .b-sidebar-body {
+  padding-left: 30px;
 }
 </style>

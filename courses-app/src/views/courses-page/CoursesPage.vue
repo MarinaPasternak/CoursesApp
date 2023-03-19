@@ -69,7 +69,7 @@ export default {
       this.totalRows = this.allCourses.length;
     },
   },
-  created() {
+  mounted() {
     this.fetchCourses();
   },
 };

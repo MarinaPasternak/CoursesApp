@@ -12,6 +12,35 @@
       </div>
       <div v-else-if="courseData">
         <h1 class="course-title">{{ courseData.title }}</h1>
+        <div class="d-flex statistic-container">
+          <div class="d-flex statistic-badge">
+            <div class="icon-item">
+              <b-icon icon="card-text" scale="1.5"></b-icon>
+            </div>
+            <div>
+              <p>Lessons</p>
+              <p>{{ unlockedLessonCount }}</p>
+            </div>
+          </div>
+          <div class="d-flex statistic-badge">
+            <div class="icon-item">
+              <b-icon icon="clock-fill" scale="1.5"></b-icon>
+            </div>
+            <div>
+              <p>Duration</p>
+              <p>{{ (courseData.duration / 60).toFixed(1) }}h</p>
+            </div>
+          </div>
+          <div class="d-flex statistic-badge">
+            <div class="icon-item">
+              <b-icon icon="star-fill" scale="1.5"></b-icon>
+            </div>
+            <div>
+              <p>Rating</p>
+              <p>{{ courseData.rating }}</p>
+            </div>
+          </div>
+        </div>
         <div class="sidebar-container">
           <b-button
             v-b-toggle.allCoursesSidebar
@@ -37,7 +66,7 @@
             </div>
           </b-sidebar>
         </div>
-        <div>
+        <div class="video-container">
           <lesson-video
             :lessonData="lessonDataForVideo || lessonDataForVideoDeafault"
           ></lesson-video>
@@ -72,9 +101,14 @@ export default {
       errorMessage: (state) => state.courseData.courseError,
     }),
     lessonDataForVideoDeafault() {
-      return this.courseData.lessons.find(
+      return this.courseData?.lessons.find(
         (lesson) => lesson.status === "unlocked"
       );
+    },
+    unlockedLessonCount() {
+      return this.courseData?.lessons.filter(
+        (lesson) => lesson.status === "unlocked"
+      ).length;
     },
   },
   methods: {
@@ -123,7 +157,7 @@ export default {
 
 .sidebar-open-button {
   left: -18px;
-  top: auto;
+  top: 60px;
 }
 
 #allCoursesSidebar .lessons-list {
@@ -166,5 +200,34 @@ export default {
 
 ::v-deep #allCoursesSidebar .b-sidebar-body {
   padding-left: 30px;
+}
+
+.statistic-container {
+  width: 640px;
+  margin: 10px auto;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background-color: #17a2b8;
+}
+
+.statistic-container .statistic-badge {
+  margin: 10px;
+  align-items: center;
+  justify-content: space-around;
+  color: white;
+}
+
+.statistic-container .statistic-badge p {
+  font-weight: 800;
+  margin: 0;
+}
+
+.statistic-container .statistic-badge .icon-item {
+  margin-right: 10px;
+  padding: 15px;
+  background-color: #49b7c8;
+  border-radius: 10px;
+  opacity: 0.8;
 }
 </style>

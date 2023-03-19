@@ -1,8 +1,22 @@
 <template>
   <div>
-    <div class="card-container" @click="goToCoursePage(course.id)">
+    <div
+      class="card-container"
+      @click="goToCoursePage(course.id)"
+      @mouseover="playVideo"
+      @mouseleave="pauseVideo"
+    >
       <h3>{{ course.title }}</h3>
-      <img :src="course.previewImageLink + '/cover.webp'" />
+      <div class="video-preview-container">
+        <img :src="course.previewImageLink + '/cover.webp'" />
+        <video
+          ref="videoPreviewPlayer"
+          muted
+          preload="metadata"
+          @ended="resetVideo"
+          @pause="resetVideo"
+        ></video>
+      </div>
       <div class="d-flex statistic-container">
         <div class="d-flex statistic-badge">
           <div class="icon-item">
@@ -46,12 +60,34 @@
 </template>
 
 <script>
+import Hls from "hls.js";
 export default {
   name: "CourseCard",
   props: ["course"],
   methods: {
     goToCoursePage(courseId) {
       this.$router.push({ name: "course", params: { courseId } });
+    },
+    playVideo() {
+      const video = this.$refs.videoPreviewPlayer;
+      const hls = new Hls();
+      hls.loadSource(`${this.course.meta.courseVideoPreview.link}`);
+      hls.attachMedia(video);
+      video.currentTime = 0;
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        video.addEventListener("canplay", () => {
+          video.play();
+        });
+      });
+    },
+    pauseVideo() {
+      const video = this.$refs.videoPreviewPlayer;
+      video.pause();
+      this.resetVideo();
+    },
+    resetVideo() {
+      const video = this.$refs.videoPreviewPlayer;
+      video.currentTime = 0;
     },
   },
 };
@@ -139,5 +175,19 @@ export default {
 .card-container .see-course-button:hover {
   background-color: #17a2b8;
   color: white;
+}
+
+.video-preview-container video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+}
+.card-container:hover .video-preview-container video {
+  display: block;
+}
+
+.card-container:hover .video-preview-container img {
+  display: none;
 }
 </style>

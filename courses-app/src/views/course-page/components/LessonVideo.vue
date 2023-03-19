@@ -11,20 +11,24 @@
 import Hls from "hls.js";
 export default {
   props: ["lessonData"],
-  mounted() {
-    const video = this.$refs.videoPlayer;
-    const hls = new Hls();
+  watch: {
+    "lessonData.link"(newLink, oldLink) {
+      if (newLink !== oldLink) {
+        this.loadVideo();
+      }
+    },
+  },
+  methods: {
+    loadVideo() {
+      const video = this.$refs.videoPlayer;
+      const hls = new Hls();
 
-    if (Hls.isSupported()) {
-      console.log(this.lessonData.link);
       hls.loadSource(`${this.lessonData.link}`);
       hls.attachMedia(video);
-    } // else if (video.canPlayType("application/vnd.apple.mpegurl")) {
-    //   video.src = "http://example.com/my-video.m3u8";
-    //   video.addEventListener("loadedmetadata", () => {
-    //     video.play();
-    //   });
-    // }
+    },
+  },
+  mounted() {
+    this.loadVideo();
   },
 };
 </script>

@@ -150,7 +150,7 @@ export default {
 
 .statistic-container .statistic-badge .icon-item {
   margin-right: 10px;
-  padding: 15px;
+  padding: 10px;
   background-color: #49b7c8;
   border-radius: 10px;
   opacity: 0.8;
